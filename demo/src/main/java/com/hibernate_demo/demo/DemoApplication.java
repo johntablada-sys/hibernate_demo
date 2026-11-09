@@ -16,10 +16,10 @@ public class DemoApplication {
 
 	@Bean
 	CommandLineRunner commandLineRunner(StudentDao studentDao) {
-		return runner -> createStudent(studentDao);
+		return runner -> readStudent(studentDao, 2);
 	}
 
-	private void createStudent(StudentDao studentDao) {
+	private Student createStudent(StudentDao studentDao) {
 		System.out.println("Creating student...");
 
 		Student student = new Student("Light", "Yagami", "light.yagami@example.com");
@@ -28,5 +28,17 @@ public class DemoApplication {
 
 		System.out.println("Saving student information...");
 		System.out.println("Saved! Generated id: " + student.getId());
+
+		Student leslie = new Student("Leslie", "Andrews", "leslie.andrews@example.com");
+		studentDao.save(leslie);
+		System.out.println("Saved Leslie. Generated id: " + leslie.getId());
+
+		return student;
+	}
+
+	private void readStudent(StudentDao studentDao, Integer id) {
+		System.out.println("Retrieving student id " + id + "...");
+		Student student = studentDao.findById(id);
+		System.out.println("Found the student " + student);
 	}
 }
