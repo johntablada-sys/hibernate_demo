@@ -18,7 +18,9 @@ public class DemoApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(StudentDao studentDao) {
 		return runner -> {
-			createStudent(studentDao);
+			if (studentDao.findAll().isEmpty()) {
+				createStudent(studentDao);
+			}
 			// readStudent(studentDao, 2);
 			// queryStudents(studentDao);
 			// queryStudentLastName(studentDao);
